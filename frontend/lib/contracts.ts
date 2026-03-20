@@ -135,6 +135,14 @@ export const CHAINWILL_ABI = [
     outputs: [],
   },
   {
+    name: "resetWill",
+    type: "function",
+    stateMutability: "nonpayable",
+    inputs: [],
+    outputs: [],
+  },
+
+  {
     name: "CheckedIn",
     type: "event",
     inputs: [
