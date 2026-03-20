@@ -419,6 +419,46 @@ describe("ChainWill", () => {
     });
   });
 
+  it("owner can reset will when paused", async () => {
+      const { contract, alice, bob } = await deployChainWill();
+      await contract.write.configureWill([
+        twoBeneficiaries(alice.account.address, bob.account.address),
+        THIRTY_DAYS,
+      ]);
+      await contract.write.pause();
+      await contract.write.resetWill();
+      assert.equal(await contract.read.isConfigured(), false);
+      const bens = await contract.read.getBeneficiaries();
+      assert.equal(bens.length, 0);
+    });
+
+    it("resetWill reverts when not paused", async () => {
+      const { contract, alice } = await deployChainWill();
+      await contract.write.configureWill([
+        [{ wallet: alice.account.address, allocation: 10_000n }],
+        THIRTY_DAYS,
+      ]);
+      await assert.rejects(
+        () => contract.write.resetWill(),
+        /ExpectedPause/
+      );
+    });
+
+    it("resetWill reverts after will is executed", async () => {
+      const { contract, alice } = await deployChainWill();
+      await contract.write.configureWill([
+        [{ wallet: alice.account.address, allocation: 10_000n }],
+        THIRTY_DAYS,
+      ]);
+      await network.networkHelpers.time.increase(Number(THIRTY_DAYS + 1n));
+      await contract.write.performUpkeep(["0x"]);
+      await contract.write.pause();
+      await assert.rejects(
+        () => contract.write.resetWill(),
+        /AlreadyExecuted/
+      );
+    });
+
   // getWillStatus
 
   describe("getWillStatus", () => {

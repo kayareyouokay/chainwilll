@@ -324,6 +324,25 @@ contract ChainWill is
         IERC20(_token).safeTransfer(owner(), balance);
     }
 
+    function resetWill()
+    external
+    onlyOwner
+    whenPaused
+    nonReentrant
+    {
+        // Cannot reset an already-executed will — assets are gone
+        if (willExecuted) revert AlreadyExecuted();
+
+        delete beneficiaries;
+        delete tokenAssets;
+        delete nftAssets;
+
+        isConfigured    = false;
+        lastCheckIn     = block.timestamp;
+
+        emit WillConfigured(msg.sender, 0, inactivityThreshold);
+    }
+
     function timeUntilExecution() external view returns (uint256) {
         uint256 deadline = lastCheckIn + inactivityThreshold;
         if (block.timestamp >= deadline) return 0;

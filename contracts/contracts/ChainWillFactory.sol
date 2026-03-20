@@ -59,4 +59,10 @@ contract ChainWillFactory {
     function totalWills() external view returns (uint256) {
         return allWills.length;
     }
+
+    /// deletes a will
+    function deleteWill() external {
+    if (wills[msg.sender] == address(0)) revert NoWillFound();
+    delete wills[msg.sender];
+}
 }
