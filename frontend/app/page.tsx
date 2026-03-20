@@ -24,7 +24,7 @@ export default function HomePage() {
             marginBottom: "1.5rem",
           }}
         >
-          ETHEREUM · SEPOLIA TESTNET
+          POLYGON · AMOY
         </p>
         <h1
           style={{
