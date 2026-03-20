@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile:prod": "hardhat compile --profile production",
-    "deploy:sepolia": "hardhat ignition deploy ignition/modules/ChainWill.ts --network sepolia"
+    "deploy:amoy": "hardhat ignition deploy ignition/modules/ChainWill.ts --network polygonAmoy"
   },
   "keywords": [],
   "author": "",

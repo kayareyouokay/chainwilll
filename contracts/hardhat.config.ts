@@ -24,16 +24,26 @@ export default defineConfig({
       type: "edr-simulated",
       chainType: "l1",
     },
-    sepolia: {
+    polygonAmoy: {
       type: "http",
       chainType: "l1",
-      url: configVariable("SEPOLIA_RPC_URL"),
-      accounts: [configVariable("SEPOLIA_PRIVATE_KEY")],
-      chainId: 11155111,
+      url: configVariable("POLYGON_AMOY_RPC_URL"),
+      accounts: [configVariable("POLYGON_PRIVATE_KEY")],
+      chainId: 80002,
     },
   },
 
   etherscan: {
-    apiKey: configVariable("ETHERSCAN_API_KEY"),
+    apiKey: configVariable("POLYGONSCAN_API_KEY"),
+    customChains: [
+      {
+        network: "polygonAmoy",
+        chainId: 80002,
+        urls: {
+          apiURL: "https://api-amoy.polygonscan.com/api",
+          browserURL: "https://amoy.polygonscan.com",
+        },
+      },
+    ],
   },
 });
