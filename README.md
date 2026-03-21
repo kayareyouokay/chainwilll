@@ -52,14 +52,14 @@ ChainWill (one per wallet)
 - Configure up to 5 beneficiaries with % allocations (must sum to 100%)
 - Live countdown clock showing time until execution
 - One-click check-in to reset the inactivity timer
-- Deposit MATIC directly into the will contract
+- Deposit POL directly into the will contract
 - On-chain address validation when adding beneficiaries
 - View currently registered beneficiaries
 - Danger zone: pause, emergency withdraw, reset, delete
 
 **Beneficiary portal**
 - Connect any wallet to scan all ChainWill contracts
-- See every will you're named in with your % allocation and MATIC share
+- See every will you're named in with your % allocation and POL share
 - Live status: active, paused, executed, imminent
 - Notified when execution has occurred
 
