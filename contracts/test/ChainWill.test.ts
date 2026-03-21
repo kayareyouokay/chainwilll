@@ -483,4 +483,57 @@ describe("ChainWill", () => {
     });
   });
 
+  // ── Memory Vault ─────────────────────────────────────────────────────────
+
+  describe("memory vault", () => {
+    it("owner can set vault message", async () => {
+      const { contract } = await deployChainWill();
+      await contract.write.setVaultMessage(["QmTestHash123", false]);
+      const msg = await contract.read.vaultMessage();
+      assert.equal(msg, "QmTestHash123");
+    });
+
+    it("stores privacy flag correctly", async () => {
+      const { contract } = await deployChainWill();
+      await contract.write.setVaultMessage(["QmTestHash123", true]);
+      const isPrivate = await contract.read.vaultMessagePrivate();
+      assert.equal(isPrivate, true);
+    });
+
+    it("owner can update vault message", async () => {
+      const { contract } = await deployChainWill();
+      await contract.write.setVaultMessage(["QmFirst", false]);
+      await contract.write.setVaultMessage(["QmSecond", false]);
+      const msg = await contract.read.vaultMessage();
+      assert.equal(msg, "QmSecond");
+    });
+
+    it("reverts when called by non-owner", async () => {
+      const { contract, alice } = await deployChainWill();
+      const aliceContract = await network.viem.getContractAt(
+        "ChainWill",
+        contract.address,
+        { client: { wallet: alice } }
+      );
+      await assert.rejects(
+        () => aliceContract.write.setVaultMessage(["QmTest", false]),
+        /OwnableUnauthorizedAccount/
+      );
+    });
+
+    it("reverts after will is executed", async () => {
+      const { contract, alice } = await deployChainWill();
+      await contract.write.configureWill([
+        [{ wallet: alice.account.address, allocation: 10_000n }],
+        THIRTY_DAYS,
+      ]);
+      await network.networkHelpers.time.increase(Number(THIRTY_DAYS + 1n));
+      await contract.write.performUpkeep(["0x"]);
+      await assert.rejects(
+        () => contract.write.setVaultMessage(["QmTest", false]),
+        /AlreadyExecuted/
+      );
+    });
+  });
+
 });

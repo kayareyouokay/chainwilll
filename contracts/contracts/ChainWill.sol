@@ -48,6 +48,14 @@ contract ChainWill is
 
     address public automationForwarder;
 
+    /// @notice IPFS hash of the owner's vault message (text).
+    ///         Empty string means no message set.
+    string public vaultMessage;
+
+    /// @notice Whether the vault message is revealed to beneficiaries
+    ///         only after execution (true) or always visible (false).
+    bool public vaultMessagePrivate;
+
     Beneficiary[] public beneficiaries;
     TokenAsset[] public tokenAssets;
     NFTAsset[] public nftAssets;
@@ -59,6 +67,7 @@ contract ChainWill is
     event TokenTransferred(address indexed token, address indexed beneficiary, uint256 amount);
     event NFTTransferred(address indexed nft, uint256 tokenId, address indexed beneficiary);
     event ForwarderUpdated(address indexed forwarder);
+    event VaultMessageSet(address indexed owner, string ipfsHash, bool isPrivate);
 
     error NotConfigured();
     error AlreadyExecuted();
@@ -158,6 +167,17 @@ contract ChainWill is
             nftAssets.push(_nfts[i]);
             unchecked { ++i; }
         }
+    }
+
+    function setVaultMessage(string calldata _ipfsHash, bool _private)
+    external
+    onlyOwner
+    notExecuted
+    whenNotPaused
+    {
+        vaultMessage        = _ipfsHash;
+        vaultMessagePrivate = _private;
+        emit VaultMessageSet(msg.sender, _ipfsHash, _private);
     }
 
     /// optional chainlink forwarder restriction
