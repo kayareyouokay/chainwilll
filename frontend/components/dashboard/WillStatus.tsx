@@ -137,7 +137,7 @@ export function WillStatus({ willAddress }: { willAddress: `0x${string}` }) {
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", borderTop: "1px solid var(--border-dim)" }}>
-        <Stat label="MATIC LOCKED" value={`${parseFloat(formatEther(ethBalance)).toFixed(4)}`} unit="MATIC" />
+        <Stat label="POL LOCKED" value={`${parseFloat(formatEther(ethBalance)).toFixed(4)}`} unit="POL" />
         <Stat label="BENEFICIARIES" value={beneficiaryCount.toString()} unit="/ 5" border />
         <Stat label="THRESHOLD" value={`${Math.floor(Number(status[4]) / 86400)}`} unit="DAYS" border />
       </div>
