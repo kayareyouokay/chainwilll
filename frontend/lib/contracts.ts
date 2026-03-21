@@ -1,12 +1,6 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// Deployed addresses — Sepolia
-// ─────────────────────────────────────────────────────────────────────────────
-
 export const FACTORY_ADDRESS =
   "0x66Cc14AbdBa43fE10333909bF1A927Cf21A7C253" as const;
 
-// Individual will address is looked up per-wallet via the factory.
-// This constant is only used as a fallback type reference.
 export const CHAINWILL_ABI = [
   {
     name: "getWillStatus",
@@ -141,7 +135,6 @@ export const CHAINWILL_ABI = [
     inputs: [],
     outputs: [],
   },
-
   {
     name: "CheckedIn",
     type: "event",
@@ -190,13 +183,11 @@ export const FACTORY_ABI = [
     outputs: [{ name: "", type: "uint256" }],
   },
   {
-    name: "WillCreated",
-    type: "event",
-    inputs: [
-      { name: "owner",     type: "address", indexed: true },
-      { name: "will",      type: "address", indexed: true },
-      { name: "threshold", type: "uint256", indexed: false },
-    ],
+    name: "allWills",
+    type: "function",
+    stateMutability: "view",
+    inputs: [{ name: "", type: "uint256" }],
+    outputs: [{ name: "", type: "address" }],
   },
   {
     name: "WillCreated",
