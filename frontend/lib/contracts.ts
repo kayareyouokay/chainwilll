@@ -1,5 +1,5 @@
 export const FACTORY_ADDRESS =
-  "0x66Cc14AbdBa43fE10333909bF1A927Cf21A7C253" as const;
+  "0xd2585f2000eC85744ECD811e892d9C2f136Ca859" as const;
 
 export const CHAINWILL_ABI = [
   {
@@ -30,6 +30,23 @@ export const CHAINWILL_ABI = [
         components: [
           { name: "wallet",     type: "address" },
           { name: "allocation", type: "uint256" },
+        ],
+      },
+    ],
+  },
+  {
+    name: "getNFTAssets",
+    type: "function",
+    stateMutability: "view",
+    inputs: [],
+    outputs: [
+      {
+        name: "",
+        type: "tuple[]",
+        components: [
+          { name: "nftContract",  type: "address" },
+          { name: "tokenId",      type: "uint256" },
+          { name: "beneficiary",  type: "address" },
         ],
       },
     ],
@@ -134,6 +151,56 @@ export const CHAINWILL_ABI = [
     stateMutability: "nonpayable",
     inputs: [],
     outputs: [],
+  },
+  {
+    name: "vaultMessage",
+    type: "function",
+    stateMutability: "view",
+    inputs: [],
+    outputs: [{ name: "", type: "string" }],
+  },
+  {
+    name: "vaultMessagePrivate",
+    type: "function",
+    stateMutability: "view",
+    inputs: [],
+    outputs: [{ name: "", type: "bool" }],
+  },
+  {
+    name: "setVaultMessage",
+    type: "function",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "_ipfsHash", type: "string" },
+      { name: "_private",  type: "bool"   },
+    ],
+    outputs: [],
+  },
+  {
+    name: "setNFTAssets",
+    type: "function",
+    stateMutability: "nonpayable",
+    inputs: [
+      {
+        name: "_nfts",
+        type: "tuple[]",
+        components: [
+          { name: "nftContract",  type: "address" },
+          { name: "tokenId",      type: "uint256" },
+          { name: "beneficiary",  type: "address" },
+        ],
+      },
+    ],
+    outputs: [],
+  },
+  {
+    name: "VaultMessageSet",
+    type: "event",
+    inputs: [
+      { name: "owner",     type: "address", indexed: true  },
+      { name: "ipfsHash",  type: "string",  indexed: false },
+      { name: "isPrivate", type: "bool",    indexed: false },
+    ],
   },
   {
     name: "CheckedIn",

@@ -10,6 +10,8 @@ import { CreateWill }        from "@/components/dashboard/CreateWill";
 import { DepositMatic }      from "@/components/dashboard/DepositMatic";
 import { FACTORY_ADDRESS, FACTORY_ABI } from "@/lib/contracts";
 import { DangerZone }      from "@/components/dashboard/DangerZone";
+import { MemoryVault } from "@/components/dashboard/MemoryVault";
+import { NFTVault }    from "@/components/dashboard/NFTVault";
 
 export default function DashboardPage() {
   const { address, isConnected } = useAccount();
@@ -130,6 +132,12 @@ function ConnectedDashboard({ address, willAddress }: { address: `0x${string}`; 
 
       {/* Deposit */}
       <DepositMatic willAddress={willAddress} />
+
+      {/* Vault section */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "1.5rem" }}>
+          <MemoryVault willAddress={willAddress} />
+          <NFTVault    willAddress={willAddress} />
+        </div>
 
       {/* Danger zone */}
       <DangerZone willAddress={willAddress} onWillDeleted={() => window.location.reload()} />
