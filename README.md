@@ -149,6 +149,9 @@ Open http://localhost:3000
 PINATA_JWT=your_pinata_jwt_here
 ```
 
+`PINATA_JWT` is server-only and is used by the Next.js API route at `frontend/app/api/pinata/route.ts`.
+Do not prefix it with `NEXT_PUBLIC_`.
+
 ### Deploy contracts to Polygon Amoy
 ```bash
 cd contracts
