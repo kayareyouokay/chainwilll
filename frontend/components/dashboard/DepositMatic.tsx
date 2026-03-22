@@ -32,7 +32,7 @@ export function DepositMatic({ willAddress }: { willAddress: `0x${string}` }) {
         background: "var(--bg-surface)",
       }}>
         <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", letterSpacing: "0.2em", color: "var(--text-muted)" }}>
-          DEPOSIT POL TO WILL
+          DEPOSIT FUNDS TO WILL
         </span>
       </div>
 
@@ -41,7 +41,7 @@ export function DepositMatic({ willAddress }: { willAddress: `0x${string}` }) {
           fontFamily: "var(--font-mono)", fontSize: "0.75rem",
           color: "var(--text-secondary)", lineHeight: 1.6, letterSpacing: "0.03em",
         }}>
-          Send POL to your will contract. On execution, it will be split
+          Send funds to your will contract. On execution, they will be split
           proportionally among your beneficiaries.
         </p>
 
@@ -60,7 +60,7 @@ export function DepositMatic({ willAddress }: { willAddress: `0x${string}` }) {
             }}
           />
           <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--text-muted)", flexShrink: 0 }}>
-            POL
+            FUNDS
           </span>
         </div>
 
